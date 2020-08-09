@@ -1,2 +1,26 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+{{!-- <div class="mt-6 is-hidden-mobile is-hidden-tablet-only"></div> --}}
+<div class="container has-text-centered" style="min-height: 90vh; padding: 1rem;">
+    <div class="column is-8-tablet is-5-widescreen" style="margin-left: auto; margin-right: auto;">
+        <button class="button is-info is-medium is-fullwidth">
+            <span>Login with GitHub</span>
+            <span class="icon">
+                <i class="fab fa-github"></i>
+            </span>
+        </button>
+    </div>
+
+    <div class="columns is-multiline is-mobile column is-10 mt-1" style="margin-left: auto; margin-right: auto;">
+        {{#each topics}}
+        <div class="column is-12-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen" >
+            <div class="main-card">
+                <img src={{this.imgUrl}} alt={{this.name}}>
+                <h5>{{this.name}}</h5>
+                <button class="button is-success">
+                    Discuss topic
+                </button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    
+</div>

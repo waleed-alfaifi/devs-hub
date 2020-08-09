@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "css-build": "node-sass --omit-source-map-url sass/bulma.scss public/stylesheets/bulma.css"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,6 +16,8 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
+    "bulma": "^0.9.0",
+    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4"
   }
 }
