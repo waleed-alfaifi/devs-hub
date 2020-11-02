@@ -1,12 +1,22 @@
 {{!-- <div class="mt-6 is-hidden-mobile is-hidden-tablet-only"></div> --}}
 <div class="container has-text-centered" style="min-height: 90vh; padding: 1rem;">
-    <div class="column is-8-tablet is-5-widescreen" style="margin-left: auto; margin-right: auto;">
-        <button class="button is-info is-medium is-fullwidth">
-            <span>Login with GitHub</span>
-            <span class="icon">
-                <i class="fab fa-github"></i>
-            </span>
-        </button>
+    <div class="column is-10-tablet is-8-desktop is-6-widescreen " style="margin-left: auto; margin-right: auto;">
+        {{!-- {{isAuthenticated}} --}}
+        {{#if isAuthenticated}}
+            <a class="button is-success is-medium is-fullwidth" href="/dashboard" style="white-space: normal; word-wrap: break-word;">
+                <span>You are logged in as {{user.username}}</span>
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+            </a>
+        {{else}}
+            <a class="button is-info is-medium is-fullwidth" href="/auth/github">
+                <span>Login with GitHub</span>
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+            </a>
+        {{/if}}
     </div>
 
     <div class="columns is-multiline is-mobile column is-10 mt-1" style="margin-left: auto; margin-right: auto;">
