@@ -1,56 +1,23 @@
-const express = require('express');
-
+const express = require("express");
+const createError = require("http-errors");
 const router = express.Router();
+const Topic = require("../models/Topic");
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  const topics = [
-    {
-      name: 'JavaScript',
-      imgUrl: '/images/icons/js.svg',
-    },
-    {
-      name: 'Python',
-      imgUrl: '/images/icons/python.svg',
-    },
-    {
-      name: 'PHP',
-      imgUrl: '/images/icons/php.svg',
-    },
-    {
-      name: 'Java',
-      imgUrl: '/images/icons/java.svg',
-    },
-    {
-      name: 'C#',
-      imgUrl: '/images/icons/c_sharp.svg',
-    },
-    {
-      name: 'TypeScript',
-      imgUrl: '/images/icons/typescript.png',
-    },
-    {
-      name: 'C++',
-      imgUrl: '/images/icons/c++.png',
-    },
-    {
-      name: 'Dart',
-      imgUrl: '/images/icons/dart.png',
-    },
-  ];
+router.get("/", async function (req, res, next) {
+  try {
+    const topics = await Topic.find({}, "-_id name imgUrl path");
+    const { isAuthenticated, user } = req;
+    const context = {
+      title: "Home",
+      topics,
+      isAuthenticated,
+      user,
+    };
 
-  console.log('userrrrrrrr', req.user);
-  console.log('isAuthenticated', req.isAuthenticated());
-
-  const { isAuthenticated, user } = req;
-  const context = {
-    title: 'Devs Hub',
-    topics,
-    isAuthenticated,
-    user,
-  };
-
-  res.render('index', context);
+    res.render("index", context);
+  } catch (error) {
+    next(createError(500));
+  }
 });
 
 module.exports = router;
