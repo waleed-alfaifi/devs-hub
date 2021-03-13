@@ -13,9 +13,10 @@ require("dotenv").config();
 require("./config/db-connect");
 require("./config/passport")(passport);
 
+const authRouter = require("./routes/auth");
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const chatRouter = require("./routes/chat");
+const topicRouter = require("./routes/topic");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,14 +46,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 app.use("/chat", isAuthenticated, chatRouter);
-
-app.get("/auth/github", passport.authenticate("github"));
-app.get(
-  "/auth/github/callback",
-  passport.authenticate("github", { successRedirect: "/" }),
-);
+app.use("/topic", isAuthenticated, topicRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

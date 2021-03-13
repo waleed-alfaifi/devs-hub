@@ -5,10 +5,15 @@ const TopicSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   imgUrl: {
     type: String,
     required: true,
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
   path: {
     type: String,

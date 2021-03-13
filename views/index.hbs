@@ -1,3 +1,61 @@
+{{#if isAuthenticated}}
+<div class="modal px-3" id="add-topic-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add new topic</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="tags">
+        {{#if isAllowedToAddTopics}}
+            <span class="tag is-info">You have {{remainingTopics}} topics left</span>
+        {{else}}
+            <span class="tag is-danger">You have {{remainingTopics}} topics left</span>
+        {{/if}}
+      </div>
+      <form action="/topic/create" id="add-topic-form" method="POST">
+        <div class="field">
+            <label class="label">Topic Name</label>
+            <div class="control has-icons-left">
+                {{#if isAllowedToAddTopics}}
+                    <input class="input" type="text" placeholder="e.g React, Laravel" name="topicName" required>
+                {{else}}
+                    <input class="input" type="text" placeholder="e.g React, Laravel" name="topicName" required disabled>
+                {{/if}}
+                <span class="icon is-small is-left">
+                    <i class="far fa-file-code"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Image URL</label>
+            <div class="control has-icons-left">
+                {{#if isAllowedToAddTopics}}
+                    <input class="input" type="url" placeholder="e.g. https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" name="imgUrl" required>
+                {{else}}
+                    <input class="input" type="url" placeholder="e.g. https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" name="imgUrl" required disabled>
+                {{/if}}
+                <span class="icon is-small is-left">
+                    <i class="far fa-image"></i>
+                </span>
+            </div>
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      {{#if isAllowedToAddTopics}}
+        <button class="button is-success" form="add-topic-form">Submit topic</button>
+      {{else}}
+        <button class="button is-success" form="add-topic-form" disabled>Submit topic</button>
+      {{/if}}
+      <button class="button" id="modal-cancel">Cancel</button>
+    </footer>
+  </div>
+</div>
+{{/if}}
+
 <div class="column is-10-tablet is-8-desktop is-6-widescreen" style="margin-left: auto; margin-right: auto;">
     {{#if isAuthenticated}}
         <a class="button is-success is-medium is-fullwidth" href="/dashboard" style="white-space: normal; word-wrap: break-word;">
@@ -6,6 +64,7 @@
                 <i class="fab fa-github"></i>
             </span>
         </a>
+        <a href="/auth/logout">Logout</a>
     {{else}}
         <a class="button is-info is-medium is-fullwidth" href="/auth/github">
             <span>Login with GitHub</span>
@@ -17,8 +76,12 @@
 </div>
 
 <p class="column is-10 mb-1 mt-5 px-5 py-0" style="margin-left: auto; margin-right: auto;">
-    Welcome to DevsHub. Join one of the available rooms,
-    <a href="#">or create your own here!</a>
+    {{#if isAuthenticated}}
+        Welcome to DevsHub. Join one of the available rooms,
+        <a href="#" id="create-topic-button">or create your own here!</a>
+    {{else}}
+        Welcome to DevsHub. Please <a href="/auth/github">log in</a> to join one of the available rooms, or even create your own one!
+    {{/if}}
 </p>
 <div class="columns is-multiline is-mobile column is-10" style="margin-left: auto; margin-right: auto; padding-top: 0;">
     {{#each topics}}
@@ -33,3 +96,5 @@
     </div>
     {{/each}}
 </div>
+
+<script src="/js/index.js"></script>

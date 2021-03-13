@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Topic",
-      max: [5, "You are not allowed to create more than 5 topics."],
+      max: 5,
     },
   ],
 });
