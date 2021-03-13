@@ -1,3 +1,4 @@
+const User = require("../models/User");
 const Topic = require("../models/Topic");
 
 exports.index = async (req, res, next) => {
@@ -20,6 +21,22 @@ exports.index = async (req, res, next) => {
     };
 
     res.render("index", context);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.profile = async (req, res, next) => {
+  const { _id: userId } = req.user;
+  try {
+    const userInfo = await User.findById({ _id: userId });
+    const userTopics = await Topic.find({ owner: userId }, "-owner");
+
+    res.render("profile", {
+      title: "Profile",
+      user: userInfo,
+      topics: userTopics,
+    });
   } catch (error) {
     next(error);
   }

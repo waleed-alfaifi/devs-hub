@@ -58,13 +58,12 @@
 
 <div class="column is-10-tablet is-8-desktop is-6-widescreen" style="margin-left: auto; margin-right: auto;">
     {{#if isAuthenticated}}
-        <a class="button is-success is-medium is-fullwidth" href="/dashboard" style="white-space: normal; word-wrap: break-word;">
+        <a class="button is-success is-medium is-fullwidth" href="/profile" style="white-space: normal; word-wrap: break-word;">
             <span>{{user.username}}</span>
             <span class="icon">
                 <i class="fab fa-github"></i>
             </span>
         </a>
-        <a href="/auth/logout">Logout</a>
     {{else}}
         <a class="button is-info is-medium is-fullwidth" href="/auth/github">
             <span>Login with GitHub</span>

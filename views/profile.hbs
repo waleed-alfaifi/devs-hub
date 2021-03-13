@@ -1,0 +1,52 @@
+<!-- Profile template credit to: https://codepen.io/thubz/pen/YzzBymO -->
+<a href="/">
+    <i class="fas fa-arrow-left"></i>
+    Back to home
+</a>
+<div class='columns'>
+  <div class='container px-3'>
+    <div class='px-0 py-5'>
+      <div class='columns is-desktop is-multiline'>
+        <div class='column is-4'>
+            <figure>
+                <img alt={{user.displayName}} src={{user.profileImg}}>
+            </figure>
+        </div>
+        <div class='column is-8'>
+          <a href={{user.profileUrl}} style="display: flex; align-items: center;" target="_blank" rel="noopenner">
+            <span class='title my-0 is-bold mr-3'>{{user.displayName}}</span>
+            <i class="fas fa-external-link-alt is-size-5"></i>
+          </a>
+          <p class="mt-3 is-size-5">
+            {{user.bio}}
+          </p>
+        </div>
+      </div>
+      <a class='button is-danger is-outlined' href='/auth/logout' style='margin: 5px 0'>
+        Logout
+      </a>
+    </div>
+    <h3 class="is-size-3 mb-3">Your topics</h3>
+    <div class='' style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;">
+    {{#each topics}}
+        <div class=''>
+            <div class='card'>
+            <div class='card-image px-5 py-5'>
+                <figure class='image is-square'>
+                    <img alt={{this.name}} src={{this.imgUrl}}>
+                </figure>
+            </div>
+            <div class='card-content'>
+                <div class='content'>
+                    <span class='tag is-dark subtitle'>{{this.name}}</span>
+                </div>
+            </div>
+            <footer class='card-footer'>
+                <a class='card-footer-item' href={{this.path}}>Discuss topic</a>
+            </footer>
+            </div>
+        </div>
+    {{/each}}
+    </div>
+  </div>
+</div>

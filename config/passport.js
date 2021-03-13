@@ -10,7 +10,14 @@ module.exports = function (passport) {
         callbackURL: process.env.CALLBACK_URL,
       },
       function (accessToken, refreshToken, profile, cb) {
-        const { id, displayName, username, photos, profileUrl } = profile;
+        const {
+          id,
+          displayName,
+          username,
+          photos,
+          profileUrl,
+          _json: { bio },
+        } = profile;
 
         User.findOne({ githubId: id })
           .then((found) => {
@@ -24,6 +31,7 @@ module.exports = function (passport) {
               username,
               profileUrl,
               profileImg: photos[0].value,
+              bio,
             })
               .then((user) => {
                 return cb(null, user);

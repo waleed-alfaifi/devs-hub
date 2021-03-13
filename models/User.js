@@ -21,6 +21,9 @@ const UserSchema = new Schema({
   profileImg: {
     type: String,
   },
+  bio: {
+    type: String,
+  },
   topics: [
     {
       type: Schema.Types.ObjectId,
