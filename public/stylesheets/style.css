@@ -91,7 +91,13 @@ body {
   min-height: 500px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 992px) {
+  .chat-main {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+@media (max-width: 735px) {
   .chat-main {
     grid-template-columns: 1fr;
   }
@@ -120,6 +126,18 @@ body {
   overflow-y: auto;
   margin-bottom: 10px;
   padding-bottom: 10px;
+}
+
+ul#users li {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+ul#users li a {
+  display: flex;
+  align-items: center;
 }
 
 .chat-sidebar ul li {
@@ -158,10 +176,3 @@ body {
 .chat-form-container form {
   display: flex;
 }
-
-/* .chat-form-container input[type="text"] {
-  font-size: 16px;
-  padding: 5px;
-  height: 40px;
-  flex: 1;
-} */

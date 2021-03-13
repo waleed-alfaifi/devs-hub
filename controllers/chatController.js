@@ -1,3 +1,4 @@
+const createError = require("http-errors");
 const Topic = require("../models/Topic");
 
 exports.index = function (req, res, next) {
@@ -14,5 +15,6 @@ exports.getChat = async function (req, res, next) {
     res.render("chat", { title: name, topicName: name, topicImage: imgUrl });
   } catch (error) {
     console.error(error);
+    next(createError(error));
   }
 };

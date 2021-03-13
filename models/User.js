@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -21,6 +21,13 @@ const UserSchema = new Schema({
   profileImg: {
     type: String,
   },
+  topics: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Topic",
+      max: [5, "You are not allowed to create more than 5 topics."],
+    },
+  ],
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

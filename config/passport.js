@@ -20,7 +20,7 @@ module.exports = function (passport) {
             // Create a new user in db
             User.create({
               githubId: id,
-              displayName,
+              displayName: displayName || username,
               username,
               profileUrl,
               profileImg: photos[0].value,
@@ -28,11 +28,17 @@ module.exports = function (passport) {
               .then((user) => {
                 return cb(null, user);
               })
-              .catch((error) => console.error(error));
+              .catch((error) => {
+                console.error(error);
+                return cb(error, null);
+              });
           })
-          .catch((error) => console.error(error));
-      }
-    )
+          .catch((error) => {
+            console.error(error);
+            return cb(error, null);
+          });
+      },
+    ),
   );
 
   passport.serializeUser((user, done) => {

@@ -14,8 +14,6 @@ exports.socket = function (socket, next) {
   if (!user) {
     next(createError(401, { message: "Unauthorized connection" }));
   } else {
-    console.log(user);
+    next();
   }
-
-  next();
 };

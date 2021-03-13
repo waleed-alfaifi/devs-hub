@@ -1,35 +1,35 @@
-{{!-- <div class="mt-6 is-hidden-mobile is-hidden-tablet-only"></div> --}}
-{{!-- <div class="container has-text-centered" style="min-height: 90vh; padding: 1rem;"> --}}
-    <div class="column is-10-tablet is-8-desktop is-6-widescreen " style="margin-left: auto; margin-right: auto;">
-        {{!-- {{isAuthenticated}} --}}
-        {{#if isAuthenticated}}
-            <a class="button is-link is-medium is-fullwidth" href="/dashboard" style="white-space: normal; word-wrap: break-word;">
-                <span>{{user.username}}</span>
-                <span class="icon">
-                    <i class="fab fa-github"></i>
-                </span>
-            </a>
-        {{else}}
-            <a class="button is-info is-medium is-fullwidth" href="/auth/github">
-                <span>Login with GitHub</span>
-                <span class="icon">
-                    <i class="fab fa-github"></i>
-                </span>
-            </a>
-        {{/if}}
-    </div>
+<div class="column is-10-tablet is-8-desktop is-6-widescreen" style="margin-left: auto; margin-right: auto;">
+    {{#if isAuthenticated}}
+        <a class="button is-success is-medium is-fullwidth" href="/dashboard" style="white-space: normal; word-wrap: break-word;">
+            <span>{{user.username}}</span>
+            <span class="icon">
+                <i class="fab fa-github"></i>
+            </span>
+        </a>
+    {{else}}
+        <a class="button is-info is-medium is-fullwidth" href="/auth/github">
+            <span>Login with GitHub</span>
+            <span class="icon">
+                <i class="fab fa-github"></i>
+            </span>
+        </a>
+    {{/if}}
+</div>
 
-    <div class="columns is-multiline is-mobile column is-10 mt-1" style="margin-left: auto; margin-right: auto;">
-        {{#each topics}}
-        <div class="column is-12-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen" >
-            <div class="main-card">
-                <img src={{this.imgUrl}} alt={{this.name}}>
-                <h5>{{this.name}}</h5>
-                <a class="button is-success" href={{this.path}}>
-                    Discuss topic
-                </a>
-            </div>
+<p class="column is-10 mb-1 mt-5 px-5 py-0" style="margin-left: auto; margin-right: auto;">
+    Welcome to DevsHub. Join one of the available rooms,
+    <a href="#">or create your own here!</a>
+</p>
+<div class="columns is-multiline is-mobile column is-10" style="margin-left: auto; margin-right: auto; padding-top: 0;">
+    {{#each topics}}
+    <div class="column is-12-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
+        <div class="main-card">
+            <img src={{this.imgUrl}} alt={{this.name}}>
+            <h5>{{this.name}}</h5>
+            <a class="button is-success" href={{this.path}}>
+                Discuss topic
+            </a>
         </div>
-        {{/each}}
     </div>
-{{!-- </div> --}}
+    {{/each}}
+</div>
