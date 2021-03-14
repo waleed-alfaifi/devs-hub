@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const Topic = require("../models/Topic");
+const sanitizeHtml = require("sanitize-html");
 
 exports.createTopic = async (req, res, next) => {
   const {
@@ -9,6 +10,11 @@ exports.createTopic = async (req, res, next) => {
 
   if (!topicName || !imgUrl) {
     return next(createError(400, "Please submit all required fields."));
+  }
+
+  if (sanitizeHtml(topicName) === "" || sanitizeHtml(imgUrl) === "") {
+    // If the input is dirty
+    return res.redirect("/");
   }
 
   try {

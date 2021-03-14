@@ -1,3 +1,4 @@
+const sanitizeHtml = require("sanitize-html");
 const auth = require("../middleware/auth");
 const Message = require("../models/Message");
 const User = require("../models/User");
@@ -143,18 +144,20 @@ module.exports = function (io) {
         );
       }
 
-      socket.on("send_message", async ({ message }) => {
+      socket.on("send_message", async ({ message: dirtyMessage }) => {
+        const message = sanitizeHtml(dirtyMessage);
         const formattedMessage = formatMessage(displayName, message);
 
-        io.to(room).emit("receive_message", formattedMessage);
-
-        // Persist sent message
-        await Message.create({
-          sender: userId,
-          topic: id,
-          text: message,
-          date: formattedMessage.date,
-        });
+        if (message !== "") {
+          // If the sent message is clean, send it and persist it
+          io.to(room).emit("receive_message", formattedMessage);
+          await Message.create({
+            sender: userId,
+            topic: id,
+            text: message,
+            date: formattedMessage.date,
+          });
+        }
       });
 
       // Disconnect from current session (i.e. browser tab)
