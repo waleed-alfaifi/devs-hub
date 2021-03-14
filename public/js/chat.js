@@ -4,6 +4,8 @@ const sendForm = document.getElementById("chat-form");
 const usersList = document.getElementById("users");
 const socket = io();
 
+msgsContainer.scrollTop = msgsContainer.scrollHeight; // Scroll down to most recent messages
+
 // Get topic id
 const segments = location.pathname.split("/");
 const topicId = segments[segments.length - 1];
@@ -12,13 +14,6 @@ socket.emit("join_topic", { topicId });
 
 socket.on("online_users", (onlineUsers) => {
   displayOnlineUsers(onlineUsers);
-});
-
-socket.on("initial_messages", (messages) => {
-  // Render initial messages
-  messages.forEach((message) => {
-    displayMessage(message);
-  });
 });
 
 socket.on("welcome_msg", (message) => {

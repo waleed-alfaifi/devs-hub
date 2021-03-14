@@ -131,9 +131,6 @@ module.exports = function (io) {
       const onlineUsers = await getOnlineUsers(room);
       io.to(room).emit("online_users", onlineUsers);
 
-      const topicMessages = await retrieveMessages(id);
-      socket.emit("initial_messages", topicMessages);
-
       if (!isUserOnline(username, room)) {
         socket.emit(
           "welcome_msg",

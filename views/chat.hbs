@@ -10,15 +10,22 @@
         <div class="chat-sidebar has-background-link">
           <h3><i class="fas fa-comments"></i> Topic:</h3>
           <h2 id="topic-name">
-			  <img src={{topicImage}} alt={{topicName}}>
-			  <span>{{topicName}}</span>
-			</h2>
+            <img src={{topicImage}} alt={{topicName}}>
+            <span>{{topicName}}</span>
+			    </h2>
           <h3><i class="fas fa-users"></i> Online Users</h3>
           <ul id="users"></ul>
           <h3><i class="fab fa-github"></i> {{topicName}} Repositories</h3>
           <ul id="repos"></ul>
         </div>
-        <div class="chat-messages" id="chat-messages-container"></div>
+        <div class="chat-messages" id="chat-messages-container">
+          {{#each initialMessages}}
+            <div class="message has-background-link-light">
+                <p class="meta has-text-link">{{this.sender.displayName}} <span>{{this.date}}</span></p>
+                <p class="text">{{this.text}}</p>
+            </div>
+          {{/each}}
+        </div>
       </main>
       <div class="chat-form-container has-background-link-dark">
         <form id="chat-form">
