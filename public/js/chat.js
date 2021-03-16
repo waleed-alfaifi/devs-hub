@@ -47,7 +47,7 @@ function displayMessage({ message, user, date }, isWelcome = false) {
   div.innerHTML = content;
 
   msgsContainer.appendChild(div);
-  div.scrollIntoView();
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
 }
 
 function displayOnlineUsers(users = []) {
