@@ -4,7 +4,7 @@ const createTopicButton = document.getElementById("create-topic-button");
 createTopicButton.addEventListener("click", () => {
   modal.classList.add("is-active");
 
-  document.querySelector(".modal-background, .modal .delete, #modal-cancel").addEventListener("click", () => {
+  document.querySelectorAll(".modal-background, .modal .delete, #modal-cancel").addEventListener("click", () => {
     modal.classList.remove("is-active");
   });
 });
