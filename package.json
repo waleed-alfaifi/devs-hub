@@ -1,7 +1,11 @@
 {
   "name": "devs-hub",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "engines": {
+    "node": "14.15.4"
+  },
   "private": true,
+  "main": "app.js",
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
