@@ -4,6 +4,7 @@ const Message = require("../models/Message");
 const User = require("../models/User");
 const Topic = require("../models/Topic");
 const { formatMessage } = require("./utils");
+const dayjs = require("dayjs");
 
 const rooms = []; // For convenience and simplicity, right now I'm keeping online users sessions in memory
 
@@ -84,33 +85,6 @@ const getOnlineUsers = async (room) => {
   return onlineUsers;
 };
 
-const retrieveMessages = async (topic) => {
-  try {
-    const messages = await Message.find({ topic }).populate(
-      "sender",
-      "displayName",
-    );
-
-    const formattedMessages = messages.map((message) => {
-      const {
-        sender: { displayName },
-        text,
-        date,
-      } = message;
-
-      return {
-        user: displayName,
-        message: text,
-        date,
-      };
-    });
-
-    return formattedMessages;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 module.exports = function (io) {
   io.use(auth.socket);
 
@@ -141,12 +115,28 @@ module.exports = function (io) {
         );
       }
 
-      socket.on("send_message", async ({ message: dirtyMessage }) => {
+      socket.on("send_message", async ({ message: dirtyMessage, date }) => {
         const message = sanitizeHtml(dirtyMessage);
-        const formattedMessage = formatMessage(displayName, message);
+        const cleanDate = sanitizeHtml(date);
 
-        if (message !== "") {
+        // console.log(`cleanDate`, cleanDate);
+        // console.log(`You sent it at`, date);
+
+        // console.log("dayjs", dayjs(date).format("dddd MMM YYYY h:mm a"));
+        // console.log(
+        //   "dayjs",
+        //   dayjs(Number(cleanDate)).format("dddd MMM YYYY h:mm a"),
+        // );
+
+        if (message !== "" && cleanDate !== "") {
           // If the sent message is clean, send it and persist it
+
+          const formattedMessage = formatMessage(
+            displayName,
+            message,
+            Number(cleanDate),
+          );
+
           io.to(room).emit("receive_message", formattedMessage);
           await Message.create({
             sender: userId,

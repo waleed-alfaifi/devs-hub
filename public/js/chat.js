@@ -27,7 +27,8 @@ socket.on("receive_message", (message) => {
 sendForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const message = msgInput.value;
-  socket.emit("send_message", { message });
+  const date = new Date().getTime();
+  socket.emit("send_message", { message, date });
   msgInput.value = "";
 });
 
