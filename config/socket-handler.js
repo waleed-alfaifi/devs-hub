@@ -3,47 +3,39 @@ const auth = require("../middleware/auth");
 const Message = require("../models/Message");
 const User = require("../models/User");
 const Topic = require("../models/Topic");
-const { formatMessage } = require("./utils");
+const { formatMessage, logDev } = require("./utils");
 
-const rooms = []; // For convenience and simplicity, right now I'm keeping online users sessions in memory
+const rooms = {}; // For convenience and simplicity, right now I'm keeping online users sessions in memory
 
 const joinUser = (user, room) => {
-  const found = rooms.find((el) => el.room === room);
+  rooms[room] = rooms[room] || [];
+  rooms[room].push(user);
 
-  if (found) {
-    found.users.push(user);
-  } else {
-    rooms.push({
-      room,
-      users: [user],
-    });
-  }
-
-  console.log("rooms", rooms);
+  logDev("rooms", rooms);
 };
 
 const userLeave = (user, room) => {
-  const roomIndex = rooms.findIndex((el) => el.room === room);
+  const persistedRoom = rooms[room];
 
-  if (roomIndex > -1) {
-    const userIndex = rooms[roomIndex].users.findIndex(
+  if (persistedRoom) {
+    const userIndex = persistedRoom.findIndex(
       (persistedUser) => persistedUser === user,
     );
 
     if (userIndex > -1) {
-      rooms[roomIndex].users.splice(userIndex, 1);
+      persistedRoom.splice(userIndex, 1);
     }
   }
 
-  console.log("rooms", rooms);
+  logDev("rooms", rooms);
 };
 
 const isUserOnline = (user, room) => {
   let isOnline = false;
-  const roomIndex = rooms.findIndex((el) => el.room === room);
+  const persistedRoom = rooms[room];
 
-  if (roomIndex > -1) {
-    const userSessions = rooms[roomIndex].users.filter(
+  if (persistedRoom) {
+    const userSessions = persistedRoom.filter(
       (persistedUser) => persistedUser === user,
     );
 
@@ -58,13 +50,13 @@ const isUserOnline = (user, room) => {
 
 const getOnlineUsers = async (room) => {
   let onlineUsers = [];
-  const persistedRoom = rooms.find((el) => el.room === room);
+  const persistedRoom = rooms[room];
 
   if (persistedRoom) {
-    onlineUsers = [...new Set(persistedRoom.users)]; // Remove duplicates
+    onlineUsers = [...new Set(persistedRoom)]; // Remove duplicates
 
     // WARNING: Waiting for all promises to resolve means they are all being done in parallel.
-    // This is probably consume too much memory when there're a lot of online users.
+    // This probably consumes too much memory when there're a lot of online users.
     // Description: Modify online users array to contain actual information about users
     onlineUsers = await Promise.all(
       onlineUsers.map(async (onlineUser) => {

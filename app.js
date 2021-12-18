@@ -17,6 +17,7 @@ const authRouter = require("./routes/auth");
 const indexRouter = require("./routes/index");
 const chatRouter = require("./routes/chat");
 const topicRouter = require("./routes/topic");
+const { logDev } = require("./config/utils");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -67,5 +68,5 @@ app.use(function (err, req, res, next) {
 });
 
 server.listen(PORT, () => {
-  console.log(`server listening on port ${PORT}`);
+  logDev(`server listening on port ${PORT}`);
 });

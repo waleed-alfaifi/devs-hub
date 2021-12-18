@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { logDev } = require("./utils");
 
 mongoose.connect(
   process.env.MONGO_URL,
@@ -10,6 +11,6 @@ mongoose.connect(
   (err) => {
     if (err) throw err;
 
-    console.log("Connected to DB.");
+    logDev("Connected to DB.");
   },
 );

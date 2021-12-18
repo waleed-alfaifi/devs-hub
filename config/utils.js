@@ -16,3 +16,9 @@ exports.formatMessage = (user, message, date) => {
 
   return formattedMessage;
 };
+
+exports.logDev = (...args) => {
+  if (process.env.NODE_ENV === "development") {
+    console.log(...args);
+  }
+};
