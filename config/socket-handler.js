@@ -4,7 +4,6 @@ const Message = require("../models/Message");
 const User = require("../models/User");
 const Topic = require("../models/Topic");
 const { formatMessage } = require("./utils");
-const dayjs = require("dayjs");
 
 const rooms = []; // For convenience and simplicity, right now I'm keeping online users sessions in memory
 

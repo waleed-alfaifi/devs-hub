@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Topic = require("../models/Topic");
+const { topicsLimit } = require("../config/constants");
 
 exports.index = async (req, res, next) => {
   try {
@@ -8,7 +9,8 @@ exports.index = async (req, res, next) => {
     let remainingTopics = 0;
 
     if (user) {
-      remainingTopics = 5 - (await Topic.countDocuments({ owner: user._id })); // max. is 5
+      remainingTopics =
+        topicsLimit - (await Topic.countDocuments({ owner: user._id }));
     }
 
     const context = {

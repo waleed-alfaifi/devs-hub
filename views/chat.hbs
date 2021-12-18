@@ -1,45 +1,59 @@
 <a href="/">
-    <i class="fas fa-arrow-left"></i>
-    Back to home
+  <i class="fas fa-arrow-left"></i>
+  Back to home
 </a>
 <div class="chat-container">
-      <header class="chat-header has-background-link-dark">
-        <h1 class="is-size-3 has-text-weight-bold"><i class="fas fa-code"></i> DevsHub</h1>
-      </header>
-      <main class="chat-main">
-        <div class="chat-sidebar has-background-link">
-          <h3><i class="fas fa-comments"></i> Topic:</h3>
-          <h2 id="topic-name">
-            <img src={{topicImage}} alt={{topicName}}>
-            <span>{{topicName}}</span>
-			    </h2>
-          <h3><i class="fas fa-users"></i> Online Users</h3>
-          <ul id="users"></ul>
-          <h3><i class="fab fa-github"></i> {{topicName}} Repositories <span class="tag is-success">Soon</span></h3>
-          <ul id="repos"></ul>
+  <header class="chat-header has-background-link-dark">
+    <h1 class="is-size-3 has-text-weight-bold"><i class="fas fa-code"></i>
+      DevsHub</h1>
+  </header>
+  <main class="chat-main">
+    <div class="chat-sidebar has-background-link">
+      <h3><i class="fas fa-comments"></i> Topic:</h3>
+      <h2 id="topic-name">
+        <img src={{topicImage}} alt={{topicName}} />
+        <span>{{topicName}}</span>
+      </h2>
+      <h3><i class="fas fa-users"></i> Online Users</h3>
+      <ul id="users">
+        <li class="block" style="min-height: 50px;"></li>
+      </ul>
+      <h3>
+        <i class="fab fa-github"></i>
+        {{topicName}}
+        Repositories
+      </h3>
+      <ul id="repos">
+        <li class="block" style="min-height: 50px;"></li>
+        <li class="block" style="min-height: 50px;"></li>
+        <li class="block" style="min-height: 50px;"></li>
+      </ul>
+
+    </div>
+    <div class="chat-messages" id="chat-messages-container">
+      {{#each initialMessages}}
+        <div class="message has-background-link-light">
+          <p class="meta has-text-link">{{this.sender.displayName}}
+            <span>{{this.date}}</span></p>
+          <p class="text">{{this.text}}</p>
         </div>
-        <div class="chat-messages" id="chat-messages-container">
-          {{#each initialMessages}}
-            <div class="message has-background-link-light">
-                <p class="meta has-text-link">{{this.sender.displayName}} <span>{{this.date}}</span></p>
-                <p class="text">{{this.text}}</p>
-            </div>
-          {{/each}}
-        </div>
-      </main>
-      <div class="chat-form-container has-background-link-dark">
-        <form id="chat-form">
-          <input
-            id="msg"
-            type="text"
-            placeholder="Enter Message"
-            autocomplete="off"
-            required
-            class="input is-secondary mr-3"
-          />
-          <button class="button is-success"><i class="fas fa-paper-plane mr-1"></i> Send</button>
-        </form>
-      </div>
+      {{/each}}
+    </div>
+  </main>
+  <div class="chat-form-container has-background-link-dark">
+    <form id="chat-form">
+      <input
+        id="msg"
+        type="text"
+        placeholder="Enter Message"
+        autocomplete="off"
+        required
+        class="input is-secondary mr-3"
+      />
+      <button class="button is-success"><i class="fas fa-paper-plane mr-1"></i>
+        Send</button>
+    </form>
+  </div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

@@ -128,14 +128,16 @@ body {
   padding-bottom: 10px;
 }
 
-ul#users li {
+ul#users li,
+ul#repos li {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 3px;
 }
 
-ul#users li a {
+ul#users li a,
+ul#repos li a {
   display: flex;
   align-items: center;
 }
