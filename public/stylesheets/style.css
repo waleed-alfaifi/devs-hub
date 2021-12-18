@@ -140,6 +140,7 @@ ul#users li a,
 ul#repos li a {
   display: flex;
   align-items: center;
+  word-break: break-word;
 }
 
 .chat-sidebar ul li {
