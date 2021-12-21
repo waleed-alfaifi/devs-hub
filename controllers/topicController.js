@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const Topic = require("../models/Topic");
 const sanitizeHtml = require("sanitize-html");
+const { topicsLimit } = require("../config/constants");
 
 exports.createTopic = async (req, res, next) => {
   const {
@@ -18,7 +19,8 @@ exports.createTopic = async (req, res, next) => {
   }
 
   try {
-    const isAllowed = 5 - (await Topic.countDocuments({ owner: userId })) > 0;
+    const isAllowed =
+      topicsLimit - (await Topic.countDocuments({ owner: userId })) > 0;
 
     if (isAllowed) {
       await Topic.create({
@@ -30,7 +32,10 @@ exports.createTopic = async (req, res, next) => {
       return res.redirect("/");
     } else {
       return next(
-        createError(403, "You are not allowed to create more than 5 topics."),
+        createError(
+          403,
+          `You are not allowed to create more than ${topicsLimit} topics.`,
+        ),
       );
     }
   } catch (error) {
