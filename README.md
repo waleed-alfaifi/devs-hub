@@ -24,7 +24,7 @@ Inspired by [Brad's ChatCord Tutorial](https://github.com/bradtraversy/chatcord)
 
 ![Low-fidelity prototype](https://trello-attachments.s3.amazonaws.com/5f26f8dfbc5d4836e63c1a77/5f271393af33985c7876681f/f6e60543d771754bc9adc0ffdc9f61a3/image.jpeg)
 
-## Kanband board of the project
+## Kanban board of the project
 
 [![Kanband board](https://trello-attachments.s3.amazonaws.com/5f26f8dfbc5d4836e63c1a77/5fa313df39ed3c138f2c9b12/466fb5d519c570e218fb96b8cd1bc39d/kanban_board_devs_hub.png)](https://trello.com/b/UBt18COb/)
 [Trello board](https://trello.com/b/UBt18COb/)
