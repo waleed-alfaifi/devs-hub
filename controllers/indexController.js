@@ -12,6 +12,8 @@ exports.index = async (req, res, next) => {
       remainingTopics =
         topicsLimit - (await Topic.countDocuments({ owner: user._id }));
     }
+    
+    if (remainingTopics < 0) remainingTopics = 0
 
     const context = {
       title: "Home",
